@@ -1,0 +1,53 @@
+version: "3.6"
+
+services:
+#  prod-db:
+#    build:
+#      context: db
+#    shm_size: 1g
+#    environment:
+#      - POSTGRES_PASSWORD=postgres
+#    volumes:
+#      - "./data/.pg_data:/var/lib/postgresql/data"
+#      - "./data/backup:/scripts/backup"
+#    ports:
+#      - "127.0.0.1:24007:5432"
+
+  back:
+    build:
+      context: .
+#      args:
+#        DOCKER_BUILDKIT: 1
+    volumes:
+      - ./bin:/var/lib/jetty/webapps
+#      - ./config/custom.ini:/var/lib/jetty/start.d/custom.ini
+#      - ./data/fls:/opt/fls
+#      - ../../ec-server/reports/:/opt/fls/sed_prod/0/reports/
+    ports:
+      - "127.0.0.1:8080:8080"
+
+
+#  prod-redis:
+#    image: redis:6.2.8-alpine
+#    volumes:
+#      - ./data/redis:/data:rw
+#    ports:
+#      # - "127.0.0.1:24005:6379"
+#      - "24005:6379"
+#
+#  front:
+#    build:
+#      context: ec-ui
+#    volumes:
+#      - ./config/nginx.conf:/etc/nginx/conf.d/default.conf
+#    ports:
+#      - "127.0.0.1:24009:80"
+#
+#  db-admin:
+#    image: dpage/pgadmin4:6.21
+#    ports:
+#      - "127.0.0.1:24010:80"
+#    environment:
+#      PGADMIN_DEFAULT_EMAIL: test@test.te
+#      PGADMIN_DEFAULT_PASSWORD: testTEST11!!
+
