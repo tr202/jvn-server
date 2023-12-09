@@ -2,46 +2,37 @@ package ru.jvn;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.EnableCaching;
-import org.springframework.cache.interceptor.*;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.*;
 
 import org.springframework.core.env.Environment;
-import org.springframework.core.task.TaskExecutor;
 
-import org.springframework.http.MediaType;
-import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.ResourceHttpMessageConverter;
-import org.springframework.http.converter.StringHttpMessageConverter;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
-import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
-
+import org.springframework.orm.hibernate5.HibernateTransactionManager;
+import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
-import org.springframework.web.servlet.ViewResolver;
-import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
-import org.springframework.web.servlet.view.JstlView;
 
 
 import javax.sql.DataSource;
-import java.security.Security;
-import java.time.Clock;
-import java.time.Duration;
-import java.util.*;
+import java.util.Properties;
 
 @Configuration
+//@EnableJpaRepositories
+@EnableTransactionManagement
 @EnableWebMvc
 
 //@EnableSpringConfigured
 
 
 @ComponentScan(basePackages = {
-    "ru.jvn.controller",
+        "ru.jvn.controller",
+        "ru.jvn.repository",
 })
 
 public class SpringConfig implements
@@ -58,4 +49,44 @@ public class SpringConfig implements
         StandardServletMultipartResolver ssmpr = new StandardServletMultipartResolver();
         return ssmpr;
     }
+
+    @Bean
+    public DataSource MyConnectionProviderImpl() {
+        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+        dataSource.setDriverClassName("org.postgresql.Driver");
+        dataSource.setUrl("jdbc:postgresql://db:5432/postgres");
+        dataSource.setUsername("postgres");
+        dataSource.setPassword("postgres");
+        return dataSource;
+    }
+
+    @Bean
+    public LocalSessionFactoryBean sessionFactory() {
+        LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
+        sessionFactory.setDataSource(MyConnectionProviderImpl());
+        sessionFactory.setPackagesToScan("ru.jvn.model");
+        sessionFactory.setHibernateProperties(hibernateProperties());
+        System.out.println("Heloooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo");
+        return sessionFactory;
+    }
+
+
+    @Bean
+    public PlatformTransactionManager hibernateTransactionManager() {
+        HibernateTransactionManager transactionManager
+                = new HibernateTransactionManager();
+        transactionManager.setSessionFactory(sessionFactory().getObject());
+        return transactionManager;
+    }
+
+    private final Properties hibernateProperties() {
+        Properties hibernateProperties = new Properties();
+        hibernateProperties.setProperty(
+                "hibernate.hbm2ddl.auto", "update");
+        hibernateProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
+
+
+        return hibernateProperties;
+    }
+
 }

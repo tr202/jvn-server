@@ -34,7 +34,7 @@ public class Sec {
 //    @RequestMapping(value = "/createRubricator", method = RequestMethod.POST, consumes = "application/json")
     @RequestMapping(value = "/way", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
-    public String getSecRecPost(@JsonArg String cvtd) {
+    public String getSecRecPost(@RequestBody String cvtd) {
         return "Response-sec  " + cvtd;
     }
 
