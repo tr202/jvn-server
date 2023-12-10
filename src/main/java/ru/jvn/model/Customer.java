@@ -8,8 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.UUID;
 
-@Entity
-@Table(name = "customer")
+//@Entity
+//@Table(name = "customer")
 public class Customer {
 
     @Id

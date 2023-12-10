@@ -7,19 +7,26 @@ import ru.jvn.model.Pet;
 import ru.jvn.repository.PetRepository;
 
 @RestController
+@RequestMapping("pets")
 public class PetController {
 
     @Autowired
     private PetRepository petRepository;
 
-    //@RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+
     @PostMapping
-    @Transactional
-    public String createUser(@RequestBody Pet pet) {
+
+    public String createPet(@RequestBody Pet pet) {
         petRepository.save(pet);
         //Session currentSession = sessionFactory.getCurrentSession();
         //currentSession.saveOrUpdate(pet);
         return "Response-sec  " + pet.getId();
     }
 
+    public PetController() {
+    }
+
+    public PetController(PetRepository petRepository) {
+        this.petRepository = petRepository;
+    }
 }

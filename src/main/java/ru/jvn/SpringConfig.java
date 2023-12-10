@@ -1,6 +1,7 @@
 package ru.jvn;
 
 
+import org.hibernate.jpa.boot.spi.EntityManagerFactoryBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.*;
@@ -12,6 +13,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
@@ -23,16 +25,14 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
-//@EnableJpaRepositories
+@EnableJpaRepositories(basePackages = "ru.jvn.repository",
+        entityManagerFactoryRef = "sessionfactory",transactionManagerRef = "transactionmanager")
 @EnableTransactionManagement
 @EnableWebMvc
 
-//@EnableSpringConfigured
-
 
 @ComponentScan(basePackages = {
-        "ru.jvn.controller",
-        "ru.jvn.repository",
+        "ru.jvn.controller"
 })
 
 public class SpringConfig implements
@@ -44,11 +44,11 @@ public class SpringConfig implements
     @Autowired
     private ApplicationContext ctx;
 
-    @Bean
+    /*@Bean
     public StandardServletMultipartResolver multipartResolver() {
         StandardServletMultipartResolver ssmpr = new StandardServletMultipartResolver();
         return ssmpr;
-    }
+    }*/
 
     @Bean
     public DataSource MyConnectionProviderImpl() {
@@ -60,7 +60,7 @@ public class SpringConfig implements
         return dataSource;
     }
 
-    @Bean
+    @Bean(name = "sessionfactory")
     public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(MyConnectionProviderImpl());
@@ -71,7 +71,7 @@ public class SpringConfig implements
     }
 
 
-    @Bean
+    @Bean(name = "transactionmanager")
     public PlatformTransactionManager hibernateTransactionManager() {
         HibernateTransactionManager transactionManager
                 = new HibernateTransactionManager();
@@ -82,7 +82,7 @@ public class SpringConfig implements
     private final Properties hibernateProperties() {
         Properties hibernateProperties = new Properties();
         hibernateProperties.setProperty(
-                "hibernate.hbm2ddl.auto", "update");
+                "hibernate.hbm2ddl.auto", "create-drop");
         hibernateProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
 
 

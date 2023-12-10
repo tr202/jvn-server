@@ -19,31 +19,31 @@ import java.util.UUID;
 @RequestMapping(value = "/test")
 public class TestController {
 
-    @Autowired
-    SessionFactory sessionFactory;
+  //  @Autowired
+  //  SessionFactory sessionFactory;
 
 //    @Autowired
 //    DataSource dataSource;
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    @Transactional
+   // @Transactional
     public String getTest() {
-        User user = new User(UUID.randomUUID(), "peta", "feta");
-        Session currentSession = sessionFactory.getCurrentSession();
-        currentSession.saveOrUpdate(user);
+        //User user = new User(UUID.randomUUID(), "peta", "feta");
+      //  Session currentSession = sessionFactory.getCurrentSession();
+      //  currentSession.saveOrUpdate(user);
         //Session session = sessionFactory.openSession();
         //session.persist("user",user);
         //session.close();
         return "ok";
     }
-    @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+   /* @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     @Transactional
     public String createUser(@RequestBody User user) {
         Session currentSession = sessionFactory.getCurrentSession();
         currentSession.saveOrUpdate(user);
         return "Response-sec  " + user.getId();
-    }
+    }*/
 
 }

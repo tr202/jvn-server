@@ -21,7 +21,7 @@ public class UserController {
     @Autowired
     SessionFactory sessionFactory;
 
-    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+  /*  @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     @Transactional
     public List<User> getAllUsers() {
@@ -33,7 +33,7 @@ public class UserController {
         //session.persist("user",user);
         //session.close();
         //return "ok";
-    }
+    }*/
 
 
 }

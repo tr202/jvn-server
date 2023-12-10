@@ -1,16 +1,12 @@
 package ru.jvn.model;
 
-
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.util.UUID;
 import lombok.Getter;
 import lombok.Setter;
-
-
-
 
 @Entity
 public class Pet {
@@ -35,6 +31,14 @@ public class Pet {
     }
 
     public void setName(String name) {
+        this.name = name;
+    }
+
+    public Pet() {
+    }
+
+    public Pet(UUID id, String name) {
+        this.id = id;
         this.name = name;
     }
 }
