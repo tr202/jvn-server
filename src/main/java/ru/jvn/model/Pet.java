@@ -15,6 +15,21 @@ public class Pet {
     @GeneratedValue
     private UUID id;
 
+    private String pet_type;
+
+    public String getPet_type() {
+        return pet_type;
+    }
+
+    public void setPet_type(String pet_type) {
+        this.pet_type = pet_type;
+    }
+
+    public Pet(UUID id, String pet_type, String name) {
+        this.id = id;
+        this.pet_type = pet_type;
+        this.name = name;
+    }
 
     private String name;
 

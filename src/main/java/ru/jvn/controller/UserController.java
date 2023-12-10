@@ -37,3 +37,33 @@ public class UserController {
 
 
 }
+
+
+
+
+
+/*
+Controller
+@RequestMapping(value = "/users")
+public class UserController {
+
+    @Autowired
+    SessionFactory sessionFactory;
+
+  /*  @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    @Transactional
+    public List<User> getAllUsers() {
+        //User user = new User(UUID.randomUUID(), "peta", "feta");
+        Session currentSession = sessionFactory.getCurrentSession();
+        return currentSession.createQuery("SELECT a FROM user a", User.class).getResultList();
+
+        //Session session = sessionFactory.openSession();
+        //session.persist("user",user);
+        //session.close();
+        //return "ok";
+    }
+
+
+
+ */
