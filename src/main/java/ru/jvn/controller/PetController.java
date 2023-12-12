@@ -1,11 +1,14 @@
 package ru.jvn.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import ru.jvn.model.Pet;
 import ru.jvn.model.dto.PetOutDto;
 import ru.jvn.repository.PetRepository;
+import ru.jvn.service.PetService;
 
+import java.awt.*;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -17,6 +20,15 @@ public class PetController {
 
     @Autowired
     private PetRepository petRepository;
+
+    @Autowired
+    PetService petService;
+
+    @RequestMapping(value = "/{id}/setUser", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Pet setUser(@PathVariable UUID id, @RequestBody UUID user_id) {
+        Pet pet = petService.setUser(id, user_id);
+        return pet;
+    }
 
     @GetMapping("dto")
     public List<PetOutDto> getPetsDto() {

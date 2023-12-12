@@ -1,9 +1,6 @@
 package ru.jvn.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.UUID;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,6 +13,8 @@ public class Pet {
     private UUID id;
 
     private String pet_type;
+    @ManyToOne
+    private User user;
 
     public String getPet_type() {
         return pet_type;
@@ -55,5 +54,13 @@ public class Pet {
     public Pet(UUID id, String name) {
         this.id = id;
         this.name = name;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

@@ -32,7 +32,8 @@ import java.util.Properties;
 
 
 @ComponentScan(basePackages = {
-        "ru.jvn.controller"
+        "ru.jvn.controller",
+        "ru.jvn.service"
 })
 
 public class SpringConfig implements

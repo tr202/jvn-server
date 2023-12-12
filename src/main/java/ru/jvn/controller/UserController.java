@@ -6,10 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import ru.jvn.model.User;
+import ru.jvn.repository.UserRepository;
+import ru.jvn.service.UserService;
 
 import java.util.List;
 import java.util.UUID;
@@ -18,8 +21,22 @@ import java.util.UUID;
 @RequestMapping(value = "/users")
 public class UserController {
 
+    //@Autowired
+    //SessionFactory sessionFactory;
+
+//    @Autowired
+//    UserRepository userRepository;
+
     @Autowired
-    SessionFactory sessionFactory;
+    UserService userService;
+
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    @ResponseBody
+    @Transactional
+    public User createUser(@RequestBody  User user) {
+        userService.create(user);
+        return user;
+    }
 
   /*  @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody

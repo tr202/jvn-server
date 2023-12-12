@@ -23,6 +23,16 @@ public class TestController {
     @Autowired
     DataSource dataSource;
 
+    @RequestMapping(value = "/units", method = RequestMethod.GET)
+    @ResponseBody
+    public String getUnits(@RequestParam(defaultValue = "0") Integer type) {
+//        if (type == null) {
+//            type = 0;
+//        }
+        return type.toString();
+    }
+
+
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String getTest() {

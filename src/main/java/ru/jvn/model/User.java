@@ -15,30 +15,28 @@ public class  User {
 
     @Id
     @GeneratedValue
-    private Long id;
-
+    private UUID id;
 
     private String username;
 
-
-    private String pass;
+    private String password;
 
     public User() {
 
     }
 
 
-    public User(Long id, String username, String pass) {
+    public User(UUID id, String username, String password) {
         this.id = id;
         this.username = username;
-        this.pass = pass;
+        this.password = password;
     }
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
@@ -50,12 +48,12 @@ public class  User {
         this.username = username;
     }
 
-    public String getPass() {
-        return pass;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPass(String pass) {
-        this.pass = pass;
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
 
