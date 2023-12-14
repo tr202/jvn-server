@@ -10,6 +10,7 @@ import ru.jvn.service.PetService;
 
 import java.awt.*;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -18,17 +19,32 @@ import java.util.stream.Stream;
 @RequestMapping("pets")
 public class PetController {
 
+
+
+
+    @PutMapping(value = "/{id}/setUsers")
+    public Pet setUsers(@PathVariable UUID id, @RequestBody Map<String,UUID> user_id) {//, @RequestBody UUID user_id) {
+        return petService.setUser(id, user_id.get("user_id"));
+        //ids.stream().map(row -> row.get("user_id")).forEach(System.out::println);
+    }
+
+
     @Autowired
     private PetRepository petRepository;
 
     @Autowired
     PetService petService;
 
-    @RequestMapping(value = "/{id}/setUser", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Pet setUser(@PathVariable UUID id, @RequestBody UUID user_id) {
-        Pet pet = petService.setUser(id, user_id);
-        return pet;
+
+    @ResponseBody
+    //@RequestMapping(value = "/{id}/setUser", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/{id}/setUser") // Due to rest controller
+    public String setUser(@PathVariable UUID id) {//, @RequestBody UUID user_id) {
+        //Pet pet = petService.setUser(id, user_id);
+        return "ok" + id;// + user_id;
     }
+
+
 
     @GetMapping("dto")
     public List<PetOutDto> getPetsDto() {

@@ -1,0 +1,23 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <changeSet author="marid (generated)" id="1702516703270-1">
+        <createTable tableName="test_table">
+            <column name="test_id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="test_table_pkey"/>
+            </column>
+            <column name="test_column" type="VARCHAR"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="klekovkina.i" id="gs_release_v1_3_0_task_232_dic_departms">
+        <comment>Добавление таблицы кафедры</comment>
+        <sql>
+            CREATE TABLE test_table_def (test_12_id INT, test_column VARCHAR, PRIMARY KEY (test_12_id));
+        </sql>
+    </changeSet>
+    <changeSet author="klekovkina.i" id="gs_release_v1_3_0_tts">
+        <comment>Добавление таблицы кафедры</comment>
+        <sql>
+            CREATE TABLE test_table_def_wer (test_12_id INT, test_column VARCHAR, PRIMARY KEY (test_12_id));
+        </sql>
+    </changeSet>
+</databaseChangeLog>

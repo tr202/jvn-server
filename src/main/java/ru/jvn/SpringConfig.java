@@ -1,7 +1,7 @@
 package ru.jvn;
 
 
-import org.hibernate.jpa.boot.spi.EntityManagerFactoryBuilder;
+import liquibase.integration.spring.SpringLiquibase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.*;
@@ -13,10 +13,8 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
-import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -26,7 +24,7 @@ import java.util.Properties;
 
 @Configuration
 @EnableJpaRepositories(basePackages = "ru.jvn.repository",
-        entityManagerFactoryRef = "sessionfactory",transactionManagerRef = "transactionmanager")
+        entityManagerFactoryRef = "sessionfactory", transactionManagerRef = "transactionmanager")
 @EnableTransactionManagement
 @EnableWebMvc
 
@@ -50,6 +48,15 @@ public class SpringConfig implements
         StandardServletMultipartResolver ssmpr = new StandardServletMultipartResolver();
         return ssmpr;
     }*/
+
+    @Bean
+    public SpringLiquibase liquibase(DataSource dataSource) {
+        SpringLiquibase liquibase = new SpringLiquibase();
+        liquibase.setChangeLog("db/liquibase_changelog_q.xml");
+        liquibase.setDataSource(dataSource);
+        return liquibase;
+    }
+
 
     @Bean
     public DataSource MyConnectionProviderImpl() {
@@ -82,11 +89,8 @@ public class SpringConfig implements
 
     private final Properties hibernateProperties() {
         Properties hibernateProperties = new Properties();
-        hibernateProperties.setProperty(
-                "hibernate.hbm2ddl.auto", "create-drop");
+        hibernateProperties.setProperty("hibernate.hbm2ddl.auto", "none");
         hibernateProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
-
-
         return hibernateProperties;
     }
 

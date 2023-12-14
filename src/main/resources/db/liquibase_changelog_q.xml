@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet author="klekovkina.i" id="gs_release_v1_3_0_task_232_dic_departments">
+        <comment>Добавление таблицы кафедры</comment>
+        <sql>
+            CREATE TABLE test_table (test_12_id INT, test_column VARCHAR, PRIMARY KEY (test_id));
+        </sql>
+    </changeSet>
+</databaseChangeLog>

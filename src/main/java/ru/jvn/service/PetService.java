@@ -21,12 +21,14 @@ public class PetService {
     UserRepository userRepository;
 
     public Pet setUser(UUID id, UUID user_id) {
-        Optional<Pet> pet =  petRepository.findById(id);
-        Optional<User> user = userRepository.findById(user_id);
-        pet.get().setUser(user.get());
-        return pet.get();
+        Optional<Pet> optional_pet = petRepository.findById(id);
+        Optional<User> optional_user = userRepository.findById(user_id);
+        if (optional_user.isPresent() && optional_pet.isPresent()) {
+            optional_pet.get().setUser(optional_user.get());
+            return optional_pet.get();
+        }
+        else {
+            return null;
+        }
     }
-
-
-
 }

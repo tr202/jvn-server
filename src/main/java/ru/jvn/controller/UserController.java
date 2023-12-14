@@ -32,7 +32,6 @@ public class UserController {
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @ResponseBody
-    @Transactional
     public User createUser(@RequestBody  User user) {
         userService.create(user);
         return user;
