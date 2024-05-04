@@ -1,0 +1,15 @@
+<jxb:bindings
+        xmlns:xs="http://www.w3.org/2001/XMLSchema"
+        xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
+        version="2.0">
+    <jxb:bindings schemaLocation=" http://rusgardserver/LNetworkServer/LNetworkService.svc?xsd=xsd11">
+        <jxb:bindings node="//xs:complexType[@name='LProperty']">
+            <jxb:class name="AnXSDTypeFromLProperty"/>
+        </jxb:bindings>
+    </jxb:bindings>
+    <jxb:bindings schemaLocation=" http://rusgardserver/LNetworkServer/LNetworkService.svc?xsd=xsd11">
+        <jxb:bindings node="//xs:complexType[@name='LResourceProperty']">
+            <jxb:class name="AnXSDTypeFromLResourceProperty"/>
+        </jxb:bindings>
+    </jxb:bindings>
+</jxb:bindings>

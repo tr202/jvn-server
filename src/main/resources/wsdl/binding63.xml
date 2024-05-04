@@ -1,0 +1,18 @@
+<jxb:bindings
+        xmlns:xs="http://www.w3.org/2001/XMLSchema"
+        xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
+        version="2.0">
+
+    <jxb:bindings schemaLocation=" http://rusgardserver/LNetworkServer/LNetworkService.svc?xsd=xsd63">
+        <jxb:bindings node="//xs:element[@name='Address']">
+            <jxb:class name="AnXSDTypeFromAddress"/>
+        </jxb:bindings>
+    </jxb:bindings>
+
+    <jxb:bindings schemaLocation=" http://rusgardserver/LNetworkServer/LNetworkService.svc?xsd=xsd63">
+        <jxb:bindings node="//xs:element[@name='IpAddress']">
+            <jxb:class name="AnXSDTypeFromIpAddress"/>
+        </jxb:bindings>
+    </jxb:bindings>
+
+</jxb:bindings>

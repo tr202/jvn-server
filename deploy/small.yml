@@ -23,9 +23,18 @@ services:
 #        DOCKER_BUILDKIT: 1
     volumes:
       - ./bin:/var/lib/jetty/webapps
+       #/opt/java/openjdk/lib/security"
+      - ./temp:/home
+      #- /etc/ssl/certs/java/cacerts:/etc/ssl/certs/java/cacerts
 #      - ./config/custom.ini:/var/lib/jetty/start.d/custom.ini
 #      - ./data/fls:/opt/fls
 #      - ../../ec-server/reports/:/opt/fls/sed_prod/0/reports/
+#    command:
+#      - "openssl s_client -showcerts -connect rusgardserver:443 </dev/null 2>/dev/null|openssl x509 -outform PEM >mycertfile.pem"
+#      - "$JAVA_HOME/bin/keytool -import -alias Alias -keystore $JAVA_HOME/lib/security/cacerts -file mycertfile.pem -storepass 9244Lassk -noprompt"
+    environment:
+        CMS_JAVA_OPTS: '... -Djavax.net.ssl.trustStore=/srv/custom_keystore/cacerts -Djavax.net.ssl.trustStorePassword=changeit'
+        CMS_HEAP_SIZE: '8g'
     ports:
       - "127.0.0.1:8080:8080"
 
